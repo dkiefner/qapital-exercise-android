@@ -14,4 +14,5 @@
     <color name="grey_darkest">#4a4a4a</color>
     <color name="grey_light">#f2f2f2</color>
     <color name="saving_green">#58bf0a</color>
+    <color name="background_default">@color/white</color>
 </resources>
