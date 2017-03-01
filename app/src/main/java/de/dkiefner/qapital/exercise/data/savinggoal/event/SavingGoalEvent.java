@@ -22,6 +22,7 @@ public abstract class SavingGoalEvent implements Serializable {
 		public static final String MESSAGE = "message";
 		public static final String AMOUNT = "amount";
 		public static final String FK_SAVINGS_RULE = "fk_savings_rule";
+		public static final String FK_SAVING_GOAL = "fk_saving_goal";
 	}
 
 	@StorIOSQLiteColumn(name = FieldInfo.ID, key = true)
@@ -43,9 +44,12 @@ public abstract class SavingGoalEvent implements Serializable {
 	@StorIOSQLiteColumn(name = FieldInfo.FK_SAVINGS_RULE)
 	public abstract Integer savingsRuleId();
 
+	@StorIOSQLiteColumn(name = FieldInfo.FK_SAVING_GOAL)
+	public abstract int savingGoalId();
+
 	@StorIOSQLiteCreator
-	static SavingGoalEvent create(String id, String type, String timestamp, String message, float amount, Integer savingsRuleId) {
-		return new AutoValue_SavingGoalEvent(id, type, timestamp, message, amount, savingsRuleId);
+	static SavingGoalEvent create(String id, String type, String timestamp, String message, float amount, Integer savingsRuleId, int savingGoalId) {
+		return new AutoValue_SavingGoalEvent(id, type, timestamp, message, amount, savingsRuleId, savingGoalId);
 	}
 
 }

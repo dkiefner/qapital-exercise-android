@@ -25,7 +25,7 @@ public class SavingGoalEventRepository extends Repository<SavingGoalEvent> {
 				.listOfObjects(entityClass)
 				.withQuery(Query.builder()
 						.table(getEntityTableName())
-						.where(SavingGoalEvent.FieldInfo.ID + "=?")
+						.where(SavingGoalEvent.FieldInfo.FK_SAVING_GOAL + "=?")
 						.whereArgs(savingGoalId)
 						.orderBy(SavingGoalEvent.FieldInfo.TIMESTAMP)
 						.build())

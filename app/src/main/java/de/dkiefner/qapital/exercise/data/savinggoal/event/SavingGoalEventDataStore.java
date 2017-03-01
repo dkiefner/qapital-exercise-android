@@ -20,7 +20,7 @@ public class SavingGoalEventDataStore {
 
 	private Observable<List<SavingGoalEvent>> loadAndCacheFromApi(int savingGoalId) {
 		return savingGoalEventApi.getSavingGoalEvents(savingGoalId).retry(3)
-				.map(SavingGoalEventMapper::map)
+				.map(savingGoalEventsDto -> SavingGoalEventMapper.map(savingGoalEventsDto, savingGoalId))
 				.flatMap(savingGoalEventRepository::saveAll);
 	}
 

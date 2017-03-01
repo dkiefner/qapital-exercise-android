@@ -8,19 +8,20 @@ public final class SavingGoalEventMapper {
 	private SavingGoalEventMapper() {
 	}
 
-	public static SavingGoalEvent map(SavingGoalEventDto savingGoalEventDto) {
+	public static SavingGoalEvent map(SavingGoalEventDto savingGoalEventDto, int savingGoalId) {
 		return SavingGoalEvent.create(savingGoalEventDto.getId(),
 				savingGoalEventDto.getType(),
 				savingGoalEventDto.getTimestamp(),
 				savingGoalEventDto.getMessage(),
 				savingGoalEventDto.getAmount(),
-				savingGoalEventDto.getSavingsRuleId());
+				savingGoalEventDto.getSavingsRuleId(),
+				savingGoalId);
 	}
 
-	public static List<SavingGoalEvent> map(SavingGoalEventsDto savingGoalEventsDto) {
+	public static List<SavingGoalEvent> map(SavingGoalEventsDto savingGoalEventsDto, int savingGoalId) {
 		List<SavingGoalEvent> savingGoals = new ArrayList<>();
 		for (SavingGoalEventDto savingGoalEventDto : savingGoalEventsDto.getFeed()) {
-			savingGoals.add(map(savingGoalEventDto));
+			savingGoals.add(map(savingGoalEventDto, savingGoalId));
 		}
 		return savingGoals;
 	}
