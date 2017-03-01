@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="viewModel"
+            type="de.dkiefner.qapital.exercise.ui.savinggoal.list.SavingGoalListViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        tools:context="de.dkiefner.qapital.exercise.ui.savinggoal.list.SavingGoalListFragment">
+
+        <FrameLayout
+            android:id="@+id/progressable_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:visible="@{viewModel.isLoading}">
+
+            <ProgressBar
+                android:id="@+id/progressable_progress"
+                style="@android:style/Widget.ProgressBar.Small"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
+                android:clickable="false"
+                android:indeterminate="true"/>
+
+        </FrameLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:visible="@{!viewModel.isLoading}">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:visible="@{!viewModel.isEmpty}"
+                tools:visibility="gone"/>
+
+
+            <LinearLayout
+                android:id="@+id/empty_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="vertical"
+                app:visible="@{viewModel.isEmpty}">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:text="@string/goal_list_empty_title"
+                    android:textColor="@color/grey_darkest"
+                    android:textSize="@dimen/text_l"
+                    android:textStyle="bold"/>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/margin_large"
+                    android:gravity="center_horizontal"
+                    android:text="@string/goal_list_empty_message"
+                    android:textColor="@color/grey_darker"
+                    android:textSize="@dimen/text_m"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+    </LinearLayout>
+</layout>

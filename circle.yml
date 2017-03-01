@@ -1,0 +1,7 @@
+dependencies:
+  pre:
+    # install and accept sdk components, use one line each to accept the license on each
+    #   3 - Android SDK Build-Tools 25.0.2
+    - echo y | android update sdk -u -a -t 3
+    # 160 - Android Support Repository
+    - echo y | android update sdk -u -a -t 160

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="viewModel"
+            type="de.dkiefner.qapital.exercise.ui.savinggoal.detail.SavingGoalWeekSumViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grey_light"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/margin_large">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/this_week_savings"
+            android:textColor="@color/grey_darker"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/grey_light"
+            android:text="@{viewModel.weekSumText}"
+            android:textColor="@color/black"
+            tools:text="$2.20"/>
+    </LinearLayout>
+
+</layout>

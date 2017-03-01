@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="viewModel"
+            type="de.dkiefner.qapital.exercise.ui.savinggoal.detail.SavingGoalEventListItemViewModel"/>
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/content_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_large">
+
+        <TextView
+            android:id="@+id/amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:text="@{viewModel.amount}"
+            android:textColor="@color/saving_green"
+            tools:text="$1.10"/>
+
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@id/amount"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:paddingBottom="@dimen/margin_small"
+            android:textColor="@color/black"
+            app:html="@{viewModel.message}"
+            tools:text="My Message"/>
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/message"
+            android:layout_toStartOf="@id/amount"
+            android:textColor="@color/grey_darker"
+            app:descriptive_date="@{viewModel.timestamp}"
+            tools:text="2h ago"/>
+
+    </RelativeLayout>
+
+
+</layout>

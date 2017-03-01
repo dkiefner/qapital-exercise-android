@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="viewModel"
+            type="de.dkiefner.qapital.exercise.ui.savinggoal.detail.rules.SavingGoalRuleItemViewModel"/>
+    </data>
+
+    <ImageView
+        android:id="@+id/rule_image"
+        android:layout_width="@dimen/rule_item"
+        android:layout_height="@dimen/rule_item"
+        android:scaleType="fitCenter"
+        app:imageResource="@{viewModel.imageId}"
+        tools:src="@drawable/rule_round_up"/>
+
+</layout>
