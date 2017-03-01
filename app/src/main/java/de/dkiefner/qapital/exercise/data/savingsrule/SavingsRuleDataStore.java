@@ -1,8 +1,5 @@
 package de.dkiefner.qapital.exercise.data.savingsrule;
 
-import com.pushtorefresh.storio.sqlite.StorIOSQLite;
-import com.pushtorefresh.storio.sqlite.queries.Query;
-
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -10,42 +7,21 @@ import io.reactivex.Observable;
 public class SavingsRuleDataStore {
 
 	private SavingsRuleApi savingsRuleApi;
-	private StorIOSQLite storIOSQLite;
+	private SavingsRuleRepository savingsRuleRepository;
 
-	public SavingsRuleDataStore(SavingsRuleApi savingsRuleApi, StorIOSQLite storIOSQLite) {
+	public SavingsRuleDataStore(SavingsRuleApi savingsRuleApi, SavingsRuleRepository savingsRuleRepository) {
 		this.savingsRuleApi = savingsRuleApi;
-		this.storIOSQLite = storIOSQLite;
+		this.savingsRuleRepository = savingsRuleRepository;
 	}
 
 	public Observable<List<SavingsRule>> getSavingsRules() {
-		return Observable.merge(loadFromCache(), loadAndCacheFromApi());
-	}
-
-	private Observable<List<SavingsRule>> loadFromCache() {
-		return Observable.fromCallable(() -> storIOSQLite
-				.get()
-				.listOfObjects(SavingsRule.class)
-				.withQuery(Query.builder()
-						.table(SavingsRule.TABLE_NAME)
-						.build())
-				.prepare()
-				.executeAsBlocking());
+		return Observable.mergeDelayError(savingsRuleRepository.findAll(), loadAndCacheFromApi());
 	}
 
 	private Observable<List<SavingsRule>> loadAndCacheFromApi() {
 		return savingsRuleApi.getSavingsRules().retry(3)
 				.map(SavingsRuleMapper::map)
-				.flatMap(this::saveToCache);
+				.flatMap(savingsRuleRepository::saveAll);
 	}
 
-	private Observable<List<SavingsRule>> saveToCache(List<SavingsRule> savingsRules) {
-		return Observable.fromCallable(() -> {
-			storIOSQLite
-					.put()
-					.objects(savingsRules)
-					.prepare()
-					.executeAsBlocking();
-			return savingsRules;
-		});
-	}
 }

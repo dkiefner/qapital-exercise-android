@@ -12,18 +12,21 @@ import de.dkiefner.qapital.exercise.data.QapitalExerciseSQLiteHelper;
 import de.dkiefner.qapital.exercise.data.savinggoal.SavingGoal;
 import de.dkiefner.qapital.exercise.data.savinggoal.SavingGoalApi;
 import de.dkiefner.qapital.exercise.data.savinggoal.SavingGoalDataStore;
+import de.dkiefner.qapital.exercise.data.savinggoal.SavingGoalRepository;
 import de.dkiefner.qapital.exercise.data.savinggoal.SavingGoalStorIOSQLiteDeleteResolver;
 import de.dkiefner.qapital.exercise.data.savinggoal.SavingGoalStorIOSQLiteGetResolver;
 import de.dkiefner.qapital.exercise.data.savinggoal.SavingGoalStorIOSQLitePutResolver;
 import de.dkiefner.qapital.exercise.data.savinggoal.event.SavingGoalEvent;
 import de.dkiefner.qapital.exercise.data.savinggoal.event.SavingGoalEventApi;
 import de.dkiefner.qapital.exercise.data.savinggoal.event.SavingGoalEventDataStore;
+import de.dkiefner.qapital.exercise.data.savinggoal.event.SavingGoalEventRepository;
 import de.dkiefner.qapital.exercise.data.savinggoal.event.SavingGoalEventStorIOSQLiteDeleteResolver;
 import de.dkiefner.qapital.exercise.data.savinggoal.event.SavingGoalEventStorIOSQLiteGetResolver;
 import de.dkiefner.qapital.exercise.data.savinggoal.event.SavingGoalEventStorIOSQLitePutResolver;
 import de.dkiefner.qapital.exercise.data.savingsrule.SavingsRule;
 import de.dkiefner.qapital.exercise.data.savingsrule.SavingsRuleApi;
 import de.dkiefner.qapital.exercise.data.savingsrule.SavingsRuleDataStore;
+import de.dkiefner.qapital.exercise.data.savingsrule.SavingsRuleRepository;
 import de.dkiefner.qapital.exercise.data.savingsrule.SavingsRuleStorIOSQLiteDeleteResolver;
 import de.dkiefner.qapital.exercise.data.savingsrule.SavingsRuleStorIOSQLiteGetResolver;
 import de.dkiefner.qapital.exercise.data.savingsrule.SavingsRuleStorIOSQLitePutResolver;
@@ -33,20 +36,38 @@ public class DataModule {
 
 	@Provides
 	@PerApp
-	SavingGoalDataStore provideGoalDataStore(SavingGoalApi savingGoalApi, StorIOSQLite storIOSQLite) {
-		return new SavingGoalDataStore(savingGoalApi, storIOSQLite);
+	SavingGoalDataStore provideGoalDataStore(SavingGoalApi savingGoalApi, SavingGoalRepository savingGoalRepository) {
+		return new SavingGoalDataStore(savingGoalApi, savingGoalRepository);
 	}
 
 	@Provides
 	@PerApp
-	SavingsRuleDataStore provideSavingsRuleDataStore(SavingsRuleApi savingsRuleApi, StorIOSQLite storIOSQLite) {
-		return new SavingsRuleDataStore(savingsRuleApi, storIOSQLite);
+	SavingsRuleDataStore provideSavingsRuleDataStore(SavingsRuleApi savingsRuleApi, SavingsRuleRepository savingsRuleRepository) {
+		return new SavingsRuleDataStore(savingsRuleApi, savingsRuleRepository);
 	}
 
 	@Provides
 	@PerApp
-	SavingGoalEventDataStore provideSavingGoalEventDataStore(SavingGoalEventApi savingGoalEventApi, StorIOSQLite storIOSQLite) {
-		return new SavingGoalEventDataStore(savingGoalEventApi, storIOSQLite);
+	SavingGoalEventDataStore provideSavingGoalEventDataStore(SavingGoalEventApi savingGoalEventApi, SavingGoalEventRepository savingGoalEventRepository) {
+		return new SavingGoalEventDataStore(savingGoalEventApi, savingGoalEventRepository);
+	}
+
+	@Provides
+	@PerApp
+	SavingGoalRepository provideSavingGoalRepository(StorIOSQLite storIOSQLite) {
+		return new SavingGoalRepository(storIOSQLite);
+	}
+
+	@Provides
+	@PerApp
+	SavingsRuleRepository provideSavingsRuleRepository(StorIOSQLite storIOSQLite) {
+		return new SavingsRuleRepository(storIOSQLite);
+	}
+
+	@Provides
+	@PerApp
+	SavingGoalEventRepository provideSavingGoalEventRepository(StorIOSQLite storIOSQLite) {
+		return new SavingGoalEventRepository(storIOSQLite);
 	}
 
 	@Provides

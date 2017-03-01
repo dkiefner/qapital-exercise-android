@@ -64,7 +64,7 @@ public class SavingGoalDetailViewModel {
 				.doOnNext(this::updateSavingGoalEvents)
 				.ignoreElements();
 
-		return Completable.mergeArray(rulesCompletable, eventsCompletable)
+		return Completable.mergeArrayDelayError(rulesCompletable, eventsCompletable)
 				.doOnSubscribe(disposable -> setLoading(true))
 				.doOnTerminate(() -> setLoading(false));
 	}
