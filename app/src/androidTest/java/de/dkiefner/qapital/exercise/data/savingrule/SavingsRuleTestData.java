@@ -17,6 +17,11 @@ public final class SavingsRuleTestData {
 			"    ]\n" +
 			"}";
 
+	public static final String EMPTY_LIST = "{\n" +
+			"    \"savingsRules\" : [\n" +
+			"    ]\n" +
+			"}";
+
 	private SavingsRuleTestData() {
 	}
 }

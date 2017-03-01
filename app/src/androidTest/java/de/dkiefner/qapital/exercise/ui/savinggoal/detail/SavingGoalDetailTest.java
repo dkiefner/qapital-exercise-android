@@ -140,6 +140,9 @@ public class SavingGoalDetailTest extends BaseTest {
 		// given
 		server.enqueue(new MockResponse()
 				.setResponseCode(200)
+				.setBody(SavingsRuleTestData.EMPTY_LIST));
+		server.enqueue(new MockResponse()
+				.setResponseCode(200)
 				.setBody(SavingGoalEventTestData.EMPTY_LIST));
 
 		// when
